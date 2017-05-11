@@ -5,7 +5,7 @@
     <form>
         <?php foreach ($questions as $key => $question) : ?>
             <span><?= $question->title ?></span>
-            <input type="radio" name="<?= $question->id ?>" value="yes" checked> Yes
+            <input type="radio" name="<?= $question->id ?>" value="yes" > Yes
             <input type="radio" name="<?= $question->id ?>" value="no"> No
             <br/>
         <?php endforeach; ?>

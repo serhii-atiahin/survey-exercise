@@ -1,6 +1,7 @@
 <?php
 
 use App\User;
+use App\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -48,7 +49,7 @@ $app->group(['middleware' => 'auth'], function () use ($app) {
 
 
     $app->get('form', ['as' => 'form', function () {
-        $questions = app('db')->select("SELECT * FROM questions");
+        $questions = Question::all();
 
         return view('form', ['questions' => $questions]);
     }]);
