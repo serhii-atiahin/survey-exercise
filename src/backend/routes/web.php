@@ -56,4 +56,17 @@ $app->group(['middleware' => 'auth'], function () use ($app) {
             'questions' => $questions,
         ]);
     }]);
+
+    $app->post('form', function (Request $request) {
+        $user = User::find($request->user()->id);
+
+        $answers = [];
+        foreach($request->all() as $questionId => $answer) {
+            $answers[$questionId] = ['answer' => (int)$answer];
+        }
+
+        $user->questions()->sync($answers);
+
+        return redirect()->route('form');
+    });
 });
