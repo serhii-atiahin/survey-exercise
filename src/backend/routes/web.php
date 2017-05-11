@@ -47,9 +47,13 @@ $app->post('login', function (Request $request) {
 
 $app->group(['middleware' => 'auth'], function () use ($app) {
 
-    $app->get('form', ['as' => 'form', function () {
-        $questions = Question::all();
+    $app->get('form', ['as' => 'form', function (Request $request) {
+        $questions = Question::with(['users' => function ($query) use ($request) {
+            $query->where('user_id', $request->user()->id);
+        }])->get();
 
-        return view('form', ['questions' => $questions]);
+        return view('form', [
+            'questions' => $questions,
+        ]);
     }]);
 });

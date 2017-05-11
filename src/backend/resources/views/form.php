@@ -2,11 +2,14 @@
 <body>
     <h2>Survey</h2>
 
-    <form>
-        <?php foreach ($questions as $key => $question) : ?>
+    <form method="POST">
+        <?php foreach ($questions as $question) : ?>
+            <?php
+            $answer = isset($question->users[0]) ? $question->users[0]->pivot->answer : null;
+            ?>
             <span><?= $question->title ?></span>
-            <input type="radio" name="<?= $question->id ?>" value="yes" > Yes
-            <input type="radio" name="<?= $question->id ?>" value="no"> No
+            <input type="radio" name="<?= $question->id ?>" value="true" <?= $answer === 1 ? 'checked' : ''?>> Yes
+            <input type="radio" name="<?= $question->id ?>" value="false" <?= $answer === 0 ? 'checked' : ''?>> No
             <br/>
         <?php endforeach; ?>
 

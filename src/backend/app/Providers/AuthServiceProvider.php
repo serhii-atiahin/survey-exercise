@@ -37,7 +37,7 @@ class AuthServiceProvider extends ServiceProvider
 
             $user = unserialize($_COOKIE['user']);
 
-            return User::where(User::NAME, $user->name);
+            return User::find($user->id);
         });
     }
 }
