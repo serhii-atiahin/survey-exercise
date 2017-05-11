@@ -31,21 +31,25 @@ $app->post('login', function (Request $request) {
 
     $user = User::where(User::NAME, $request->input('name'))->first();
 
-    if (Hash::check($request->input('password'), $user->password)) {
-        $request->session()->set(['user' => $user]);
-
-        redirect()->route('form');
+    if ($user === null) {
+        return redirect()->route('login');
     }
 
-    redirect()->route('login');
+    if (!Hash::check($request->input('password'), $user->password)) {
+        return redirect()->route('login');
+    }
+
+    setcookie('user', serialize($user));
+
+    return redirect()->route('form');
 });
 
 $app->group(['middleware' => 'auth'], function () use ($app) {
 
 
-    $app->get('form', function () {
+    $app->get('form', ['as' => 'form', function () {
         $questions = app('db')->select("SELECT * FROM questions");
 
         return view('form', ['questions' => $questions]);
-    });
+    }]);
 });
