@@ -27,7 +27,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function authenticate(Request $request)
+    public function login(Request $request)
     {
         $this->validate($request, [
             User::NAME     => 'required',
@@ -47,5 +47,15 @@ class UserController extends Controller
         setcookie(Cookie::USER, serialize($user));
 
         return redirect()->route(Route::SURVEY_FORM);
+    }
+
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function logout()
+    {
+        setcookie(Cookie::USER, null, time() - 3600);
+
+        return redirect()->route(Route::LOGIN_FORM);
     }
 }

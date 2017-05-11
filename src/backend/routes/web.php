@@ -18,7 +18,9 @@ $app->get('/', function () use ($app) {
 });
 
 $app->get('login', ['as' => Route::LOGIN_FORM, 'uses' => 'UserController@renderForm']);
-$app->post('login', 'UserController@authenticate');
+$app->post('login', 'UserController@login');
+
+$app->get('logout', 'UserController@logout');
 
 $app->group(['middleware' => 'auth'], function () use ($app) {
     $app->get('form', ['as' => Route::SURVEY_FORM, 'uses' => 'SurveyController@renderForm']);
