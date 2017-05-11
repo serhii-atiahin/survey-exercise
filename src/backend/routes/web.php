@@ -47,7 +47,6 @@ $app->post('login', function (Request $request) {
 
 $app->group(['middleware' => 'auth'], function () use ($app) {
 
-
     $app->get('form', ['as' => 'form', function () {
         $questions = Question::all();
 

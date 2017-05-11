@@ -36,4 +36,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $hidden = [
         self::PASSWORD,
     ];
+
+    public function questions()
+    {
+        return $this->belongsToMany('App\Question');
+    }
 }
