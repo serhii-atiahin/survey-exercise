@@ -9,7 +9,7 @@ class Question extends Model
     public function users()
     {
         return $this
-            ->belongsToMany('App\User', 'users_questions')
+            ->belongsToMany(User::class)
             ->withPivot('answer');
     }
 }

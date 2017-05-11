@@ -40,7 +40,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function questions()
     {
         return $this
-            ->belongsToMany('App\Question', 'users_questions')
+            ->belongsToMany(Question::class)
             ->withPivot('answer');
     }
 }
