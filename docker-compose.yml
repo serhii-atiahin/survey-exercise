@@ -1,0 +1,29 @@
+nginx:
+  image: elemus/nginx
+  ports:
+    - 80:80
+  volumes:
+    - ./logs/nginx:/etc/logs/nginx
+  volumes_from:
+    - backend:rw
+  links:
+    - backend:fpm
+
+backend:
+  image: elemus/fpm
+  volumes:
+    - ./src/backend:/var/www:rw
+  environment:
+    XDEBUG_CONFIG: remote_host=10.0.75.1
+  links:
+    - db
+
+db:
+  image: mysql
+  ports:
+    - 3306:3306
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_USER: dev
+    MYSQL_PASSWORD: dev
+    MYSQL_DATABASE: survey
