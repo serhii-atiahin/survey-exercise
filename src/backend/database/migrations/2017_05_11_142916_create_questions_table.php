@@ -19,11 +19,9 @@ class CreateQuestionsTable extends Migration
             $table->string('title');
         });
 
-        DB::table('questions')->insert(
-            ['title' => 'Did you sleep well last night?'],
-            ['title' => 'Did you have a good breakfast?'],
-            ['title' => 'Did you laugh already today?']
-        );
+        DB::table('questions')->insert(['title' => 'Did you sleep well last night?']);
+        DB::table('questions')->insert(['title' => 'Did you have a good breakfast?']);
+        DB::table('questions')->insert(['title' => 'Did you laugh already today?']);
     }
 
     /**

@@ -14,3 +14,9 @@
 $app->get('/', function () use ($app) {
     return $app->version();
 });
+
+$app->get('form', function () {
+    $questions = app('db')->select("SELECT * FROM questions");
+
+    return view('form', ['questions' => $questions]);
+});
