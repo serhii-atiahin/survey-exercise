@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Constants\Cookie;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
@@ -31,11 +32,11 @@ class AuthServiceProvider extends ServiceProvider
         // the User instance via an API token or any other method necessary.
 
         $this->app['auth']->viaRequest('api', function (Request $request) {
-            if (!array_key_exists('user', $_COOKIE)) {
+            if (!array_key_exists(Cookie::USER, $_COOKIE)) {
                 return null;
             }
 
-            $user = unserialize($_COOKIE['user']);
+            $user = unserialize($_COOKIE[Cookie::USER]);
 
             return User::find($user->id);
         });
