@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -18,7 +19,7 @@ class CreateQuestionsTable extends Migration
             $table->string('title');
         });
 
-        Schema::table('questions')->insert(
+        DB::table('questions')->insert(
             ['title' => 'Did you sleep well last night?'],
             ['title' => 'Did you have a good breakfast?'],
             ['title' => 'Did you laugh already today?']
